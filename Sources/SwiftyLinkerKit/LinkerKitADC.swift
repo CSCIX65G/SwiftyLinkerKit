@@ -9,7 +9,7 @@ import protocol SwiftyGPIO.SPIInterface
 
 public extension SPIInterface {
   
-  public func readLinkerKitADC(analogPIN: UInt8) -> Int {
+    func readLinkerKitADC(analogPIN: UInt8) -> Int {
     assert(analogPIN >= 0 && analogPIN <= 7,
            "analog PIN out of range \(analogPIN)")
     guard analogPIN >= 0 && analogPIN <= 7 else { return -1337 }

@@ -25,14 +25,14 @@ public protocol LKAccessory : class {
 
 public extension LKAccessory {
   
-  public var accessoryType : String {
+    var accessoryType : String {
     return "\(type(of: self))"
   }
   
-  public func shield(_ shield: LKRBShield, connectedTo      socket: Socket) {}
-  public func shield(_ shield: LKRBShield, disconnectedFrom socket: Socket) {}
+    func shield(_ shield: LKRBShield, connectedTo      socket: Socket) {}
+    func shield(_ shield: LKRBShield, disconnectedFrom socket: Socket) {}
 
-  public func teardownOnExit() {}
+    func teardownOnExit() {}
 }
 
 import class Foundation.NSLock

@@ -1,4 +1,4 @@
-// swift-tools-version:4.0
+// swift-tools-version:5.0
 
 import PackageDescription
 
@@ -8,10 +8,8 @@ let package = Package(
       .library(name: "SwiftyLinkerKit", targets: [ "SwiftyLinkerKit" ])
     ],
     dependencies: [
-        .package(url: "https://github.com/uraimo/SwiftyGPIO.git",
-                 from: "1.0.0"),
-        .package(url: "https://github.com/AlwaysRightInstitute/SwiftyTM1637.git",
-                 from: "0.1.2")
+        .package(url: "https://github.com/uraimo/SwiftyGPIO.git", from: "1.1.2"),
+        .package(url: "https://github.com/CSCIX65G/SwiftyTM1637.git", .branch("swift5"))
     ],
     targets: [
         .target(
