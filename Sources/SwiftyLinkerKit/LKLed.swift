@@ -27,7 +27,7 @@ open class LKLed : LKAccessoryBase  {
     
     public var led : GPIO?
     
-    var on : Bool? {
+    public var on : Bool? {
         didSet {
             guard let on = on else { return }
             led?.value = on ? 1 : 0
