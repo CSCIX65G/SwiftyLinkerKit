@@ -22,7 +22,7 @@ import SwiftyGPIO
  *      let thermometer = LKTemp(interval: 5.0, valueType: .celsius)
  *
  *      thermometer.onChange { temperature in
- *          print("Temperatur is", temperature, "℃")
+ *          print("Temperature is", temperature, "℃")
  *      }
  *
  */

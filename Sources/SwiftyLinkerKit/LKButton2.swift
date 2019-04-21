@@ -12,6 +12,10 @@
  *
  *   http://www.linkerkit.de/index.php?title=LK-Button2
  *
+ * Also works with
+ *
+ *   http://www.linkerkit.de/index.php?title=LK-Button1
+ *
  * Example:
  *
  *     let shield  = LKRBShield.default
