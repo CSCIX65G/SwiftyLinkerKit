@@ -29,7 +29,8 @@ open class LKLed : LKAccessoryBase  {
     
     var on : Bool? {
         didSet {
-            
+            guard let on = on else { return }
+            led?.value = on ? 1 : 0
         }
     }
     
@@ -73,6 +74,7 @@ open class LKLed : LKAccessoryBase  {
     override open func lockedAppendToDescription(_ ms: inout String) {
         super.lockedAppendToDescription(&ms)
         
-        if let led = led { ms += " led=\(led ? "on" : "off")" }
+        if let on = on { ms += " led=\(on ? "on" : "off")" }
+        else { ms += " uninitialized" }
     }
 }
