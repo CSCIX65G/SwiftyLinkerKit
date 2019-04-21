@@ -51,7 +51,7 @@ open class LKLed : LKAccessoryBase  {
         lock.lock()
         gpio0.value = 0
         gpio1.value = 0
-        led = gpio0
+        led = gpio1
         lock.unlock()
         #endif
         
