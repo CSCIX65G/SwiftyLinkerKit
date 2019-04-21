@@ -28,14 +28,17 @@ open class LKLed : LKAccessoryBase  {
     public var gpio0 : GPIO?
     public var gpio1 : GPIO?
 
-    public var on : Bool? {
+    public var on : Bool {
         didSet {
-            guard let on = on else { return }
             gpio0?.value = on ? 1 : 0
             gpio1?.value = on ? 1 : 0
         }
     }
     
+    override init() {
+        on = false
+        super.init()
+    }
     
     // MARK: - Accessory Registration
     
@@ -75,8 +78,6 @@ open class LKLed : LKAccessoryBase  {
     
     override open func lockedAppendToDescription(_ ms: inout String) {
         super.lockedAppendToDescription(&ms)
-        
-        if let on = on { ms += " led=\(on ? "on" : "off")" }
-        else { ms += " uninitialized" }
+        ms += " led=\(on ? "on" : "off")"
     }
 }
