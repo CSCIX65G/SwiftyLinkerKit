@@ -1,10 +1,12 @@
 import SwiftyLinkerKit
 import Dispatch
 
+#if (!arch(arm64))
+
 let shield  = LKRBShield.default
 let display = LKDigi()
 
-shield.connect(display, to: .digital45)
+shield?.connect(display, to: .digital45)
 
 print("Make sure the LK-Digi is connected to the digital 4/5 socket!")
 
@@ -20,3 +22,8 @@ timer.schedule(deadline  : .now(),
 timer.resume()
 
 dispatchMain()
+
+#else
+print("SwiftyLinkerKit can only be used on arm64")
+#endif
+
