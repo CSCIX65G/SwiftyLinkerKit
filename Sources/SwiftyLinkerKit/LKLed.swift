@@ -35,7 +35,7 @@ open class LKLed : LKAccessoryBase  {
         }
     }
     
-    override init() {
+    public override init() {
         on = false
         super.init()
     }
