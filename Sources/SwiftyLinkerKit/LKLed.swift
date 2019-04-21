@@ -25,12 +25,14 @@
  */
 open class LKLed : LKAccessoryBase  {
     
-    public var led : GPIO?
-    
+    public var gpio0 : GPIO?
+    public var gpio1 : GPIO?
+
     public var on : Bool? {
         didSet {
             guard let on = on else { return }
-            led?.value = on ? 1 : 0
+            gpio0?.value = on ? 1 : 0
+            gpio1?.value = on ? 1 : 0
         }
     }
     
@@ -51,18 +53,18 @@ open class LKLed : LKAccessoryBase  {
         lock.lock()
         gpio0.value = 0
         gpio1.value = 0
-        led = gpio1
+        self.gpio0 = gpio0
+        self.gpio1 = gpio1
         lock.unlock()
         #endif
         
         super.shield(shield, connectedTo: socket)
-        
     }
     
     override open func shield(_ shield: LKRBShield, disconnectedFrom s: Socket) {
         lock.lock()
-        led?.value = 0
-        led = nil
+        gpio0?.value = 0
+        gpio1?.value = 0
         lock.unlock()
         
         super.shield(shield, disconnectedFrom: s)
