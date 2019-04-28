@@ -12,15 +12,11 @@ public protocol LKAccessory : class {
     typealias GPIO   = SwiftyGPIO.GPIO
     typealias Shield = LKRBShield
     typealias Socket = LKRBShield.Socket
-    typealias SmallShield = LKRBSmallShield
-    typealias SmallShieldSocket = LKRBSmallShield.Socket
 
     var accessoryType : String { get }
     
     func shield(_ shield: LKRBShield, disconnectedFrom socket: Socket)
     func shield(_ shield: LKRBShield, connectedTo      socket: Socket)
-    func shield(_ shield: LKRBSmallShield, disconnectedFrom socket: SmallShieldSocket)
-    func shield(_ shield: LKRBSmallShield, connectedTo      socket: SmallShieldSocket)
     
     
     // turn off everything the accessory turned on!
@@ -45,9 +41,7 @@ import class Foundation.NSLock
 open class LKAccessoryBase : LKAccessory, CustomStringConvertible {
     
     weak var _shield : LKRBShield?
-    weak var _smallShield : LKRBSmallShield?
     var      _socket : Socket?
-    var      _smallSocket : SmallShieldSocket?
     let      lock    = Foundation.NSLock()
     
     open var shield : LKRBShield? {
@@ -101,22 +95,6 @@ open class LKAccessoryBase : LKAccessory, CustomStringConvertible {
     }
     open func shield(_ shield: LKRBShield, disconnectedFrom socket: Socket) {
         assert(socket ==  self.socket || self.socket == nil)
-        assert(shield === self.shield || self.shield == nil)
-        lock.lock()
-        self._socket = nil
-        self._shield = nil
-        lock.unlock()
-    }
-    open func shield(_ shield: LKRBSmallShield, connectedTo socket: SmallShieldSocket) {
-        assert(self.socket == nil)
-        assert(self.shield == nil)
-        lock.lock()
-        self._smallSocket = socket
-        self._smallShield = shield
-        lock.unlock()
-    }
-    open func shield(_ shield: LKRBSmallShield, disconnectedFrom socket: SmallShieldSocket) {
-        assert(socket ==  self._smallSocket || self._smallSocket == nil)
         assert(shield === self.shield || self.shield == nil)
         lock.lock()
         self._socket = nil

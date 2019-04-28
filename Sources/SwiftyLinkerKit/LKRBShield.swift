@@ -123,91 +123,58 @@ open class LKRBShield {
     }
     
     /**
-     * Sockets on the LK-RB-Shield
+     * Sockets on the LK-RB-SmallShield
      * ```
-     * UART + I2C
-     *          Digital GPIO
-     * ┌─┐┌─┐   ┌─┐┌─┐
-     * │ ││ │   │ ││ │
-     * │ ││ │   │ ││ │/-------------
-     * └─┘└─┘   └─┘└─┘| Analog Input
-     * ┌─┐┌─┐┌─┐┌─┐┌─┐|┌─┐┌─┐
-     * │ ││ ││ ││ ││ │|│ ││ │
-     * │ ││ ││ ││ ││ │|│ ││ │
-     * └─┘└─┘└─┘└─┘└─┘|└─┘└─┘
-     * ┌─┐┌─┐┌─┐┌─┐┌─┐|┌─┐┌─┐
-     * │ ││ ││ ││ ││ │|│ ││ │
-     * │ ││ ││ ││ ││ │|│ ││ │
-     * └─┘└─┘└─┘└─┘└─┘|└─┘└─┘
+     *       I2C
+     *          UART
+     * Analog      GPIO
+     * ┌─┐┌─┐┌─┐┌─┐┌─┐
+     * │ ││ ││ ││ ││ │
+     * │ ││ ││ ││ ││ │
+     * └─┘└─┘└─┘└─┘└─┘
+     *       G  P  I  O
+     *       ┌─┐┌─┐┌─┐
+     *       │ ││ ││ │
+     *       │ ││ ││ │
+     *       └─┘└─┘└─┘
      * ```
      */
     public enum Socket : Hashable {
         // row1
-        case uart
-        case i2c
-        case digital45
-        case digital23
-        // row2
-        case digital1516
-        case digital1415
-        case digital1314
-        case digital1213
-        case digital56
         case analog01
         case analog23
-        // row3
-        case digital2627
-        case digital2526
-        case digital2122
-        case digital2021
-        case digital1920
-        case analog45
-        case analog67
+        case uart
+        case i2c
+        case digital1718
+        // row2
+        case digital2722
+        case digital2324
+        case digital2504
         
         public init(row: Int, column: Int) {
             switch ( row, column ) {
-            case ( 1, 1 ): self = .uart
-            case ( 1, 2 ): self = .i2c
-            case ( 1, 3 ): self = .digital45
-            case ( 1, 4 ): self = .digital23
-            case ( 2, 1 ): self = .digital1516
-            case ( 2, 2 ): self = .digital1415
-            case ( 2, 3 ): self = .digital1314
-            case ( 2, 4 ): self = .digital1213
-            case ( 2, 5 ): self = .digital56
-            case ( 2, 6 ): self = .analog01
-            case ( 2, 7 ): self = .analog23
-            case ( 3, 1 ): self = .digital2627
-            case ( 3, 2 ): self = .digital2526
-            case ( 3, 3 ): self = .digital2122
-            case ( 3, 4 ): self = .digital2021
-            case ( 3, 5 ): self = .digital1920
-            case ( 3, 6 ): self = .analog45
-            case ( 3, 7 ): self = .analog67
+            case ( 1, 1 ): self = .analog01
+            case ( 1, 2 ): self = .analog23
+            case ( 1, 3 ): self = .uart
+            case ( 1, 4 ): self = .i2c
+            case ( 1, 5 ): self = .digital1718
+            case ( 2, 1 ): self = .analog01
+            case ( 2, 2 ): self = .analog23
+            case ( 2, 3 ): self = .analog23
             default: fatalError("invalid socket position: \(row)/\(column)")
             }
         }
         
         public var gpioNames : ( GPIOName, GPIOName )? {
             switch self {
-            case .uart:        return nil // TBD
-            case .i2c:         return nil // TBD
-            case .digital45:   return ( .P4,  .P5  )
-            case .digital23:   return ( .P2,  .P3  )
-            case .digital1516: return ( .P15, .P16 )
-            case .digital1415: return ( .P14, .P15 )
-            case .digital1314: return ( .P13, .P14 )
-            case .digital1213: return ( .P12, .P13 )
-            case .digital56:   return ( .P5,  .P6  )
-            case .analog01:    return ( .P0,  .P1  ) // TBD
-            case .analog23:    return ( .P2,  .P3  ) // TBD
-            case .digital2627: return ( .P26, .P27 )
-            case .digital2526: return ( .P25, .P26 )
-            case .digital2122: return ( .P21, .P22 )
-            case .digital2021: return ( .P20, .P21 )
-            case .digital1920: return ( .P19, .P20 )
-            case .analog45:    return ( .P4,  .P5  ) // TBD
-            case .analog67:    return ( .P6,  .P7  ) // TBD
+            case .uart:         return nil // TBD
+            case .i2c:          return nil // TBD
+            case .analog01:     return ( .P0,  .P1  ) // TBD
+            case .analog23:     return ( .P2,  .P3  ) // TBD
+            case .digital1718:  return ( .P17, .P18)
+            case .digital2722:  return ( .P27, .P22)
+            case .digital2324:  return ( .P23, .P24)
+            case .digital2504:  return ( .P25, .P4)
             }
         }
         
@@ -215,8 +182,6 @@ open class LKRBShield {
             switch self {
             case .analog01:    return ( 0, 1 )
             case .analog23:    return ( 2, 3 )
-            case .analog45:    return ( 4, 5 )
-            case .analog67:    return ( 6, 7 )
             default:
                 assert(!isAnalog)
                 return nil
@@ -225,24 +190,14 @@ open class LKRBShield {
         
         public var position : ( row: Int, column: Int ) {
             switch self {
-            case .uart:        return ( 1, 1 )
-            case .i2c:         return ( 1, 2 )
-            case .digital45:   return ( 1, 3 )
-            case .digital23:   return ( 1, 4 )
-            case .digital1516: return ( 2, 1 )
-            case .digital1415: return ( 2, 2 )
-            case .digital1314: return ( 2, 3 )
-            case .digital1213: return ( 2, 4 )
-            case .digital56:   return ( 2, 5 )
-            case .analog01:    return ( 2, 6 )
-            case .analog23:    return ( 2, 7 )
-            case .digital2627: return ( 3, 1 )
-            case .digital2526: return ( 3, 2 )
-            case .digital2122: return ( 3, 3 )
-            case .digital2021: return ( 3, 4 )
-            case .digital1920: return ( 3, 5 )
-            case .analog45:    return ( 3, 6 )
-            case .analog67:    return ( 3, 7 )
+            case .analog01:     return ( 1, 1 )
+            case .analog23:     return ( 1, 2 )
+            case .uart:         return ( 1, 3 )
+            case .i2c:          return ( 1, 4 )
+            case .digital1718:  return ( 1, 5 )
+            case .digital2722:  return ( 2, 1 )
+            case .digital2324:  return ( 2, 2 )
+            case .digital2504:  return ( 2, 3 )
             }
         }
         
@@ -250,44 +205,24 @@ open class LKRBShield {
             switch self {
             case .uart:        return false
             case .i2c:         return false
-            case .digital45:   return true
-            case .digital23:   return true
-            case .digital1516: return true
-            case .digital1415: return true
-            case .digital1314: return true
-            case .digital1213: return true
-            case .digital56:   return true
+            case .digital1718: return true
+            case .digital2722: return true
+            case .digital2324: return true
+            case .digital2504: return true
             case .analog01:    return false
             case .analog23:    return false
-            case .digital2627: return true
-            case .digital2526: return true
-            case .digital2122: return true
-            case .digital2021: return true
-            case .digital1920: return true
-            case .analog45:    return false
-            case .analog67:    return false
             }
         }
         public var isAnalog : Bool {
             switch self {
             case .uart:        return false
             case .i2c:         return false
-            case .digital45:   return false
-            case .digital23:   return false
-            case .digital1516: return false
-            case .digital1415: return false
-            case .digital1314: return false
-            case .digital1213: return false
-            case .digital56:   return false
+            case .digital1718: return false
+            case .digital2722: return false
+            case .digital2324: return false
+            case .digital2504: return false
             case .analog01:    return true
             case .analog23:    return true
-            case .digital2627: return false
-            case .digital2526: return false
-            case .digital2122: return false
-            case .digital2021: return false
-            case .digital1920: return false
-            case .analog45:    return true
-            case .analog67:    return true
             }
         }
     }
