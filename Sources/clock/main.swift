@@ -8,7 +8,7 @@ let display = LKDigi()
 
 shield?.connect(display, to: .digital2324)
 
-print("Make sure the LK-Digi is connected to the digital 4/5 socket!")
+print("Make sure the LK-Digi is connected to the digital 2324 socket!")
 
 let timer = DispatchSource.makeTimerSource()
 
