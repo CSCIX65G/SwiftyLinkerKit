@@ -158,9 +158,9 @@ open class LKRBShield {
             case ( 1, 3 ): self = .uart
             case ( 1, 4 ): self = .i2c
             case ( 1, 5 ): self = .digital1718
-            case ( 2, 1 ): self = .analog01
-            case ( 2, 2 ): self = .analog23
-            case ( 2, 3 ): self = .analog23
+            case ( 2, 1 ): self = .digital2722
+            case ( 2, 2 ): self = .digital2324
+            case ( 2, 3 ): self = .digital2504
             default: fatalError("invalid socket position: \(row)/\(column)")
             }
         }
