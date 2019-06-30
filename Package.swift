@@ -8,7 +8,7 @@ let package = Package(
       .library(name: "SwiftyLinkerKit", targets: [ "SwiftyLinkerKit" ])
     ],
     dependencies: [
-        .package(url: "https://github.com/uraimo/SwiftyGPIO.git", "1.1.2"),
+        .package(url: "https://github.com/uraimo/SwiftyGPIO.git", "1.1.2"..."1.1.2"),
         .package(url: "https://github.com/CSCIX65G/SwiftyTM1637.git", .branch("swift5"))
     ],
     targets: [
