@@ -133,34 +133,32 @@ open class LKRBShield {
      * │ ││ ││ ││ ││ │
      * └─┘└─┘└─┘└─┘└─┘
      *       G  P  I  O
-     *       ┌─┐┌─┐┌─┐
-     *       │ ││ ││ │
-     *       │ ││ ││ │
-     *       └─┘└─┘└─┘
+     *          ┌─┐┌─┐
+     *          │ ││ │
+     *          │ ││ │
+     *          └─┘└─┘
      * ```
      */
     public enum Socket : Hashable {
         // row1
         case analog01
         case analog23
-        case uart
         case i2c
+        case uart
         case digital1718
         // row2
         case digital2722
         case digital2324
-        case digital2504
         
         public init(row: Int, column: Int) {
             switch ( row, column ) {
             case ( 1, 1 ): self = .analog01
             case ( 1, 2 ): self = .analog23
-            case ( 1, 3 ): self = .uart
-            case ( 1, 4 ): self = .i2c
+            case ( 1, 3 ): self = .i2c
+            case ( 1, 4 ): self = .uart
             case ( 1, 5 ): self = .digital1718
             case ( 2, 1 ): self = .digital2722
             case ( 2, 2 ): self = .digital2324
-            case ( 2, 3 ): self = .digital2504
             default: fatalError("invalid socket position: \(row)/\(column)")
             }
         }
@@ -174,7 +172,6 @@ open class LKRBShield {
             case .digital1718:  return ( .P17, .P18)
             case .digital2722:  return ( .P27, .P22)
             case .digital2324:  return ( .P23, .P24)
-            case .digital2504:  return ( .P25, .P4)
             }
         }
         
@@ -192,12 +189,11 @@ open class LKRBShield {
             switch self {
             case .analog01:     return ( 1, 1 )
             case .analog23:     return ( 1, 2 )
-            case .uart:         return ( 1, 3 )
-            case .i2c:          return ( 1, 4 )
+            case .i2c:          return ( 1, 5 )
+            case .uart:         return ( 1, 4 )
             case .digital1718:  return ( 1, 5 )
             case .digital2722:  return ( 2, 1 )
             case .digital2324:  return ( 2, 2 )
-            case .digital2504:  return ( 2, 3 )
             }
         }
         
@@ -208,7 +204,6 @@ open class LKRBShield {
             case .digital1718: return true
             case .digital2722: return true
             case .digital2324: return true
-            case .digital2504: return true
             case .analog01:    return false
             case .analog23:    return false
             }
@@ -220,7 +215,6 @@ open class LKRBShield {
             case .digital1718: return false
             case .digital2722: return false
             case .digital2324: return false
-            case .digital2504: return false
             case .analog01:    return true
             case .analog23:    return true
             }
